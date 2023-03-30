@@ -15,7 +15,32 @@ public class BinaryTree{
      * 新增节点
      */
     public void insert(int data){
-
+        Node newOne = new Node();
+        newOne.data = data;
+        if(root == null) {
+            root = newOne;
+        }else {
+            Node current = root;
+            Node parent;
+            while(true){
+                parent = current;
+                if(data < current.data){
+                    //如果要插入的数据小于当前节点数据则 继续查看左子树
+                    current = current.leftChild;
+                    if(current == null){
+                        //如果左子树为空
+                        parent.leftChild = newOne;
+                        return;
+                    }
+                }else{
+                    current = current.rightChild;
+                    if(current == null){
+                        parent.rightChild = newOne;
+                        return;
+                    }
+                }
+            }
+        }
     }
 
     /**
