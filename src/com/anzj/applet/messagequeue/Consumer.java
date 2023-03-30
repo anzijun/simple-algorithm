@@ -1,4 +1,4 @@
-package com.anzj.multiThreadApp;
+package com.anzj.applet.messagequeue;
 
 /**
  * @author anzj

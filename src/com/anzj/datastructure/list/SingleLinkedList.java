@@ -1,14 +1,15 @@
-package com.anzj.list;
+package com.anzj.datastructure.list;
 
 /**
  * @author anzj
- * @date 2022/7/11 8:56
+ * @date 2021/7/11 8:56
+ * @description 单链表
  */
-public class LinkedList<E> {
+public class SingleLinkedList<E> {
     private Node<E> first;
     public int size;
 
-    public LinkedList(){
+    public SingleLinkedList(){
     }
 
     public boolean isEmpty(){
@@ -82,7 +83,7 @@ public class LinkedList<E> {
     }
 
     public static void main(String[] args) {
-        LinkedList<String> myList = new LinkedList<String>();
+        SingleLinkedList<String> myList = new SingleLinkedList<String>();
         myList.insertHead("hello");
         myList.insertHead("world");
 

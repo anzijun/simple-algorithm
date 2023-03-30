@@ -1,6 +1,4 @@
-package com.anzj.multiThreadApp;
-
-import java.beans.PropertyDescriptor;
+package com.anzj.applet.messagequeue;
 
 /**
  * @author anzj

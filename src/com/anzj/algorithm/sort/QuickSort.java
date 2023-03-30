@@ -1,4 +1,4 @@
-package com.anzj.sort;
+package com.anzj.algorithm.sort;
 
 import java.util.Arrays;
 

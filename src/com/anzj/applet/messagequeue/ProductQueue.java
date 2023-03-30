@@ -1,4 +1,4 @@
-package com.anzj.multiThreadApp;
+package com.anzj.applet.messagequeue;
 
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -13,6 +13,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * 当链表尾删除数据时需要知道尾节点前一个元素单链表无法指向前一个元素(故采用头删尾插)
  */
 public class ProductQueue<E> {
+
 
     private Node first;//指向头节点
     private Node last;//指向尾节点
