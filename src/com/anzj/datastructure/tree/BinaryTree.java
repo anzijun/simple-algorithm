@@ -1,84 +1,160 @@
 package com.anzj.datastructure.tree;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 二叉树
+ * @Author anzj
+ * @Date 2024/3/17
  */
-public class BinaryTree{
 
-    private Node root;//二叉树的根节点
+public class BinaryTree {
+    //树的根节点
+    private Node root;
 
-    public BinaryTree(){
-        root = null;
+    public BinaryTree(Node root){
+        this.root = root;
     }
-
     /**
-     * 新增节点
+     * 二叉树前序遍历
      */
-    public void insert(int data){
-        Node newOne = new Node();
-        newOne.data = data;
-        if(root == null) {
-            root = newOne;
-        }else {
-            Node current = root;
-            Node parent;
-            while(true){
-                parent = current;
-                if(data < current.data){
-                    //如果要插入的数据小于当前节点数据则 继续查看左子树
-                    current = current.leftChild;
-                    if(current == null){
-                        //如果左子树为空
-                        parent.leftChild = newOne;
-                        return;
-                    }
-                }else{
-                    current = current.rightChild;
-                    if(current == null){
-                        parent.rightChild = newOne;
-                        return;
-                    }
-                }
-            }
+    public void preOrder(){
+        if(root != null)
+            root.preOrder();
+    }
+    /**
+     * 二叉树中序遍历
+     */
+    public void minOrder(){
+        if (root != null)
+            root.minOrder();
+    }
+    /**
+     * 二叉树后序遍历
+     */
+    public void postOrder(){
+        if (root != null)
+            root.postOrder();
+    }
+    /**
+     * 获取二叉树所有路径
+     * @Param path--遍历到当前的路径
+     * @Param pathList--存放所有路径
+     */
+    public void everyPath(Node root, List<Integer> currentPath, List<List<Integer>> allPathList){
+        if (root == null)
+            return;
+        List<Integer> newCurrentPath = new ArrayList<>(currentPath);
+        newCurrentPath.add(root.data);
+        if (root.left == null && root.right == null){
+            //no child,iterate end
+            allPathList.add(newCurrentPath);
+        }else{
+            //has child,go on
+            everyPath(root.left,newCurrentPath,allPathList);
+            everyPath(root.right,newCurrentPath,allPathList);
         }
     }
 
-    /**
-     * 删除节点
-     */
-    public void delete(){
+    public static void main(String[] args) {
+        Node root = new Node(1);
+        Node left = new Node(2);
+        Node right = new Node(3);
+        Node node4 = new Node(4);
+        Node node5 = new Node(5);
+        root.left = left;
+        root.right = right;
+        left.left = node4;
+        left.right = node5;
+        BinaryTree tree = new BinaryTree(root);
+/*        System.out.println("前序结果：");
+        tree.preOrder();
+        System.out.println("\r\n中序结果：");
+        tree.minOrder();
+        System.out.println("\r\n后序结果：");
+        tree.postOrder();*/
 
-    }
-
-    /**
-     * 查找节点
-     */
-    public Node find(int key){
-        Node current = root;
-        if(current == null)
-            return null;
-        while(current.data != key){
-            //树中当前节点得值不为要查找的目标值时，继续查看当前节点的左子树和右子树
-            if(key < current.data){
-                current = current.leftChild;
-            }else{
-                current = current.rightChild;
+        List<List<Integer>> paths = new ArrayList<>();
+        tree.everyPath(tree.root,new ArrayList<>(),paths);
+        for (List<Integer> path : paths){
+            int pathSum = 0;
+            StringBuilder pathString = new StringBuilder();
+            for (Integer value : path){
+                pathSum += value;
+                pathString.append(value + "-->");
             }
-            if(current == null)
-                return null;
+            System.out.println("路径：" + pathString + "和为：" + pathSum);
         }
-        return current;
     }
 
-}
+    static final class Node{
+        private int data;//数据
+        private Node left;//左子节点
+        private Node right;//右子节点
 
-class Node{
+        Node(int data){
+            this.data = data;
+        }
 
-    int data;
-    Node leftChild;
-    Node rightChild;
+        /**
+         * 前序遍历:根-->左-->右
+         */
+        public void preOrder(){
+            System.out.print(this.data+" ");
+            if(this.left != null)
+                this.left.preOrder();
+            if (this.right != null)
+                this.right.preOrder();
+        }
+        /**
+         * 中序遍历:左-->根-->右
+         * @return
+         */
+        public void minOrder(){
+            if (this.left != null)
+                this.left.minOrder();
+            System.out.print(this.data+" ");
+            if (this.right != null)
+                this.right.minOrder();
+        }
+        /**
+         * 后序遍历:左-->右-->根
+         */
+        public void postOrder(){
+            if(this.left != null)
+                this.left.postOrder();
+            if (this.right != null)
+                this.right.postOrder();
+            System.out.print(this.data+" ");
+        }
 
-    public Node(){
+
+
+
+        public int getData() {
+            return data;
+        }
+
+        public void setData(int data) {
+            this.data = data;
+        }
+
+        public Node getLeft() {
+            return left;
+        }
+
+        public void setLeft(Node left) {
+            this.left = left;
+        }
+
+        public Node getRight() {
+            return right;
+        }
+
+        public void setRight(Node right) {
+            this.right = right;
+        }
     }
 
 }
