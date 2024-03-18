@@ -14,11 +14,21 @@ public class LeetCode509 {
         System.out.println(fibonacci(2));
         System.out.println(fib(2));
     }
+
+    /**
+     * 递归方式实现
+     * 复杂度O(n²)
+     */
     public static int fibonacci(int n){
         if(n == 0 || n == 1)
             return n;
         return fibonacci(n-1) + fibonacci(n-2);
     }
+
+    /**
+     * 回溯
+     * 时间复杂度O(n)
+     */
     public static int fib(int n) {
         int a = 0, b = 1, sum;
         for(int i = 0; i < n; i++){
