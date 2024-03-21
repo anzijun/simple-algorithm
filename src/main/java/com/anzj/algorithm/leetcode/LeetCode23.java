@@ -4,8 +4,42 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class leetCode23 {
+public class LeetCode23 {
 
+    /**
+     * 递归分治法
+     */
+    public ListNode mergeKLists(ListNode[] lists) {
+        if(lists.length == 0){
+            return null;
+        }
+        return partRecursion(lists,0,lists.length-1);
+    }
+    private ListNode partRecursion(ListNode lists[],int s,int e){
+        if(s == e){
+            return lists[0];
+        }
+        int mid = s + (e-s)/2;
+        ListNode l1 = partRecursion(lists,s,mid);
+        ListNode l2 = partRecursion(lists,mid+1,e);
+        return merge2List(l1,l2);
+    }
+    private ListNode merge2List(ListNode l1,ListNode l2){
+        ListNode base = new ListNode(0);
+        ListNode offSet = base;
+        while(l1 != null && l2 != null){
+            if(l1.val <= l2.val){
+                offSet.next = l1;
+                l1 = l1.next;
+            }else{
+                offSet.next = l2;
+                l2 = l2.next;
+            }
+            offSet = offSet.next;
+        }
+            offSet.next = l1 == null ? l2 : l1;
+            return base.next;
+    }
     /**
      * 简单清晰解法
      * 遍历所有节点,将节点值加入到数组中,数组进行排序,然后将数组转换成listNode链表
@@ -19,7 +53,7 @@ public class leetCode23 {
             ListNode current = node;
             source.add(current.val);
             while (current.next != null){
-                current = node.next;
+                current = current.next;
                 source.add(current.val);
             }
         }
